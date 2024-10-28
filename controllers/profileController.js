@@ -28,7 +28,7 @@ class ProfileController {
       }
 
       const profile = req.files.profile;
-      const message = imageValidator(profile?.size, profile.mimetype);
+      const message = imageValidator(profile?.size, profile?.mimetype);
 
       if (message !== null) {
         return res.status(400).json({

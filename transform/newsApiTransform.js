@@ -1,4 +1,5 @@
-import { getImageUrl } from "../utils/helper";
+import { getImageUrl } from "../utils/helper.js";
+import { default_profile_img } from "../public/images/profile_img.jpg";
 
 class NewsApiTransform {
   static transform(news) {
@@ -12,7 +13,9 @@ class NewsApiTransform {
         id: news?.user.id,
         name: news?.user.name,
         profile:
-          news?.user?.profile !== null ? getImageUrl(news?.user?.profile) : "",
+          news?.user?.profile !== null
+            ? getImageUrl(news?.user?.profile)
+            : getImageUrl(default_profile_img),
       },
     };
   }
