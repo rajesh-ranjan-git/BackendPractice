@@ -8,6 +8,7 @@ import {
 import prisma from "../DB/db.config.js";
 import { newsSchema } from "../validations/newsValidation.js";
 import NewsApiTransform from "../transform/newsApiTransform.js";
+import { redisCache } from "../DB/redis.config.js";
 
 class NewsController {
   static async index(req, res) {
@@ -104,6 +105,11 @@ class NewsController {
 
       const news = await prisma.news.create({
         data: payload,
+      });
+
+      // * Remove Redis cache
+      redisCache.del("/api/news", (err) => {
+        if (err) throw err;
       });
 
       return res.json({
